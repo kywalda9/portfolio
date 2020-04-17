@@ -35,6 +35,15 @@ class BurgerBuilder extends Component {
         axios.get( 'https://react-my-burger-b31c5.firebaseio.com/ingredients.json' )
             .then( response => {
                 this.setState( { ingredients: response.data } );
+                const ingredients = response.data;
+                const reducer = (accumulator, currentValue) => accumulator + currentValue;
+                let sum = Object.keys( ingredients )
+                .map( igKey => {
+                    return INGREDIENT_PRICES[igKey] * ingredients[igKey];
+                } ).reduce(reducer);
+                const newPrice = this.state.totalPrice + parseFloat(sum.toFixed( 2 ));
+                this.setState({totalPrice: newPrice});
+                this.updatePurchaseState(response.data)                
             } )
             .catch( error => {
                 this.setState( { error: true } );
