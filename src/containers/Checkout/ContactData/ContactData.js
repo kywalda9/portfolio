@@ -63,7 +63,7 @@ class ContactData extends Component {
         loading: false
     }
 
-    orderHandler = ( event,param ) => {
+    orderHandler = ( event) => {
         event.preventDefault();
         this.setState( { loading: true } );
         const formData = {};
