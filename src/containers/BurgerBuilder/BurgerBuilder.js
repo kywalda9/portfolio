@@ -22,12 +22,12 @@ class BurgerBuilder extends Component {
     //     this.state = {...}
     // }
     state = {
-        ingredients: null,
-        totalPrice: 4,
-        purchasable: false,
-        purchasing: false,
-        loading: false,
-        error: false
+        ingredients: null,     // Redux state
+        totalPrice: 4,         // Redux state
+        purchasable: false,    // not sure
+        purchasing: false,     // local UI state
+        loading: false,        // local UI state
+        error: false           // local UI state
     }
 
     componentDidMount () {
