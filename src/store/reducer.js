@@ -8,6 +8,7 @@ const initialState = {
         meat: 0
     },
     totalPrice: 4,
+    // alternative: purchasable: false
 }
 
 const INGREDIENT_PRICES = {
