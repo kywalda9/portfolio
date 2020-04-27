@@ -1,5 +1,5 @@
 import React from 'react';
-import { classExpression } from 'babel-types';
+
 import classes from './Input.css';
 
 const input = (props) => {
@@ -15,8 +15,8 @@ const input = (props) => {
             inputElement = <input
                 className={inputClasses.join(' ')}
                 {...props.elementConfig}
-                value={props.value} 
-                onChange={props.changed}/>;
+                value={props.value}
+                onChange={props.changed} />;
             break;
         case ('textArea'):
             inputElement = <textarea
@@ -31,19 +31,19 @@ const input = (props) => {
                     className={inputClasses}
                     value={props.value}
                     onChange={props.changed}>
-                    {props.elementConfig.options.map( option =>(
-                        <option key={option.value} value = {option.value}>
+                    {props.elementConfig.options.map(option => (
+                        <option key={option.value} value={option.value}>
                             {option.displayValue}
-                        </option>    
+                        </option>
                     ))}
                 </select>
             );
-            break; default:
+            break;
+        default:
             inputElement = <input
                 className={inputClasses}
                 {...props.elementConfig}
                 value={props.value} />;
-
     }
 
     let validationError = null;
