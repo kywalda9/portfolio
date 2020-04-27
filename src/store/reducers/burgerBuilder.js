@@ -36,6 +36,13 @@ const removeIngredient = (state, action) => {
 };
 
 const setIngredients = (state, action) => {
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    const ingredients = action.ingredients
+    let sum = Object.keys(ingredients)
+        .map(igKey => {
+            return INGREDIENT_PRICES[igKey] * ingredients[igKey];
+        }).reduce(reducer);
+    const newPrice = state.totalPrice + parseFloat(sum.toFixed(2));
     return updateObject(state, {
         ingredients: {
             salad: action.ingredients.salad,
@@ -43,7 +50,7 @@ const setIngredients = (state, action) => {
             cheese: action.ingredients.cheese,
             meat: action.ingredients.meat
         },
-        totalPrice: 4,
+        totalPrice: newPrice,
         error: false
     });
 };
