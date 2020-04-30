@@ -42,7 +42,7 @@ const setIngredients = (state, action) => {
         .map(igKey => {
             return INGREDIENT_PRICES[igKey] * ingredients[igKey];
         }).reduce(reducer);
-    const newPrice = state.totalPrice.totalPrice + parseFloat(sum.toFixed(2));
+    const newPrice = state.totalPrice + parseFloat(sum.toFixed(2));
     return updateObject(state, {
         ingredients: {
             salad: action.ingredients.salad,
