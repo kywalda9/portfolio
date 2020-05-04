@@ -24,12 +24,12 @@ export const authFail = (error) => {
 
 export const logout = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('exprirationDate');
+    localStorage.removeItem('expirationDate');
     localStorage.removeItem('userId');
     return {
         type: actionTypes.AUTH_LOGOUT
     };
-}
+};
 
 //async
 export const checkAuthTimeout = (expirationTime) => {
@@ -45,12 +45,12 @@ export const checkAuthTimeout = (expirationTime) => {
 export const auth = (email, password, isSignup) => {
     return dispatch => {
         //.... authenticate user
-        dispatch(authStart())
+        dispatch(authStart());
         const authData = {
             email: email,
             password: password,
             returnSecureToken: true
-        }
+        };
         let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyA9xWcrIL0AXbaPeeEtqWbNuZwyUhvoFlk';
         if (!isSignup) {
             url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyA9xWcrIL0AXbaPeeEtqWbNuZwyUhvoFlk';
@@ -60,7 +60,7 @@ export const auth = (email, password, isSignup) => {
                 console.log(response);
                 const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
                 localStorage.setItem('token', response.data.idToken);
-                localStorage.setItem('exprirationDate', expirationDate);
+                localStorage.setItem('expirationDate', expirationDate);
                 localStorage.setItem('userId', response.data.localId);
                 dispatch(authSuccess(response.data.idToken, response.data.localId));
                 dispatch(checkAuthTimeout(response.data.expiresIn));
@@ -76,7 +76,7 @@ export const setAuthRedirectPath = (path) => {
     return {
         type: actionTypes.SET_AUTH_REDIRECT_PATH,
         path: path
-    }
+    };
 };
 
 export const authCheckState = () => {
@@ -95,6 +95,5 @@ export const authCheckState = () => {
             }
            
         }
-    }
-
-}
+    };
+};

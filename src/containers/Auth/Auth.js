@@ -15,7 +15,7 @@ class Auth extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'email',
-                    placeholder: 'Mail Adress',
+                    placeholder: 'Mail Adress'
                 },
                 value: '',
                 validation: {
@@ -29,33 +29,33 @@ class Auth extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'password',
-                    placeholder: 'Password',
+                    placeholder: 'Password'
                 },
                 value: '',
                 validation: {
                     required: true,
-                    minlength: 6
+                    minLength: 6
                 },
                 valid: false,
                 touched: false
-            },
+            }
         },
         isSignup: true
     }
 
     componentDidMount() {
-        console.log('Auth ComponentDidMount');
-        console.log('buildingBurger: ' + this.props.buildingBurger);
-        let redirectPath = this.props.authRedirectPath;
-        console.log('RedirectPath: '+redirectPath);
+        // console.log('Auth ComponentDidMount');
+        // console.log('buildingBurger: ' + this.props.buildingBurger);
+        // let redirectPath = this.props.authRedirectPath;
+        // console.log('RedirectPath: '+redirectPath);
 
-        let boolean = (!this.props.buildingBurger && this.props.authRedirectPath !== '/');
-        console.log(boolean);
+        // let boolean = (!this.props.buildingBurger && this.props.authRedirectPath !== '/');
+        // console.log(boolean);
         
         if (!this.props.buildingBurger && this.props.authRedirectPath !== '/') {
         this.props.onSetAuthRedirectPath();
         }
-        console.log('new path: ' +this.props.authRedirectPath);
+        // console.log('new path: ' +this.props.authRedirectPath);
     }
     
 
@@ -68,11 +68,11 @@ class Auth extends Component {
         if (rules.required) {
             isValid = value.trim() !== '' && isValid;
         }
-        if (rules.minlength) {
-            isValid = value.length >= rules.minlength && isValid
+        if (rules.minLength) {
+            isValid = value.length >= rules.minLength && isValid
         }
-        if (rules.maxlength) {
-            isValid = value.length <= rules.maxlength && isValid
+        if (rules.maxLength) {
+            isValid = value.length <= rules.maxLength && isValid
         }
         if (rules.isEmail) {
             const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
@@ -84,7 +84,7 @@ class Auth extends Component {
         }
         return isValid;
 
-    };
+    }
 
     inputChangedHandler = (event, controlName) => {
         const updatedControls = {
@@ -95,8 +95,8 @@ class Auth extends Component {
                 valid: this.checkValidity(event.target.value, this.state.controls[controlName].validation),
                 touched: true
             }
-        }
-        this.setState({ controls: updatedControls })
+        };
+        this.setState( { controls: updatedControls } );
     }
 
     submitHandler = (event) => {
@@ -107,7 +107,7 @@ class Auth extends Component {
     switchAuthModeHandler = () => {
         this.setState(prevState => {
             return { isSignup: !prevState.isSignup};
-        })
+        });
     }
 
     render() {
@@ -128,8 +128,7 @@ class Auth extends Component {
                 invalid={!formElement.config.valid}
                 shouldValidate={formElement.config.validation}
                 touched={formElement.config.touched}
-                changed={(event) => this.inputChangedHandler(event, formElement.id)}
-            />
+                changed={(event) => this.inputChangedHandler(event, formElement.id)} />
         ));
 
         if (this.props.loading) {
@@ -141,12 +140,11 @@ class Auth extends Component {
         if (this.props.error) {
             errorMessage = (
                 <p>{this.props.error.message}</p>
-            )
+            );
         }
 
         let authRedirect = null;
         if (this.props.isAuthenticated) {
-            console.log('Submit Auth: ');
             authRedirect = <Redirect to={this.props.authRedirectPath}/>
         }
 
@@ -173,15 +171,15 @@ const mapStateToProps = state => {
         isAuthenticated: state.auth.token !==null,
         buildingBurger: state.burgerBuilder.building,
         authRedirectPath: state.auth.authRedirectPath
-    }
-}
+    };
+};
 
 const mapDispatchToProps = dispatch => {
     return {
         onAuth: (email, password, isSignup ) => dispatch(actions.auth(email, password, isSignup)),
         onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
-    }
-}
+    };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps) (Auth);
 
